@@ -1,55 +1,34 @@
 <template>
   <div class="hello">
     <h1>{{ message }}</h1>
+    <h3>{{ fullMessage }}</h3>
     <button @click="clicked">Click</button>
+    <button @click="parentClicked">Parent click</button>
   </div>
 </template>
 
 <script lang="ts">
-
-import Vue from 'vue'
+import Parent from './Parent'
 import Component from 'vue-class-component'
 
 @Component({})
+export default class Hello extends Parent {
+  message: string = 'Hello Vuehoo'
 
-export default class Hello extends Vue {
-  message: string = 'Hello Vuehoohoo'
+  created() {
+    console.log('child created')
+  }
 
   get fullMessage() {
-    return `${this.message} from TypeScript`
+    return `${this.message} TypeScript`
   }
-  created() {
-    console.log('created!')
-  }
-  clicked() {
-    console.log('clicked')
-  }
- }
-// export default {
-//   name: 'hello',
-//   data () {
-//     return {
-//       message: 'Welcome to Your Vue.js App'
-//     }
-//   },
 
-//   computed: {
-//     fullMessage(){
-//       return `${this.message} from Typescript`;
-//     }
-//   },
-
-//   created() {
-//     console.log('created');
-//   },
-
-//   methods: {
-//     clicked(){
-//       console.log('clicked');
-//     }
-//   }
-// }
+  // clicked() {
+  //   console.log('clicked')
+  // }
+}
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
