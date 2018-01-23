@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ message }}</h1>
+    <h1 v-colorDirective="{ color: 'purple', background: '#BADA55'}">{{ message }}</h1>
     <router-link to="hello-ts">Hello TS</router-link>
   </div>
 </template>
@@ -8,8 +8,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import colorDirective from '../color-directive'
 
-@Component({})
+@Component({
+  directives: {
+    colorDirective
+  }
+})
 export default class Hello extends Vue {
   message: string = 'Hello Vuehoohoo'
 
