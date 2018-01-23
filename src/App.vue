@@ -1,23 +1,40 @@
 <template>
   <div id="app">
-    <Users/>
+    <img src="./assets/logo.png" alt="">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Provide } from 'vue-property-decorator'
-import Users from './components/Users.vue'
+import Component, { createDecorator } from 'vue-class-component'
 
-import axios from 'axios'
+// the str argument is optional:
+const Log = (str?: string) => {
+  return createDecorator((component, key) => {
+    console.log("Component: ", component)
+    console.log("Decorated key: ", key)
+  })
+}
 
-@Component({
-  components: {
-    Users
+const NoCache = createDecorator((component: any, key) => {
+  if (component.computed && component.computed[key]) {
+    component.computed[key].cache = false
+  } else {
+    throw Error('Not a computed property')
   }
 })
+
+@Component
 export default class App extends Vue {
-  @Provide('myHttpModule') http = axios
+
+  @Log()
+  coolVar = 'hey'
+
+  @NoCache
+  @Log()
+  get sayHi() {
+    return 'hi'
+  }
 }
 </script>
 
