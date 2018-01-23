@@ -1,33 +1,26 @@
 <template>
   <div class="hello">
-    <h1 v-colorDirective="{ color: 'purple', background: '#BADA55'}">{{ message }}</h1>
-    <router-link to="hello-ts">Hello TS</router-link>
+    <h1>{{ fullMessage }}</h1>
   </div>
 </template>
 
+
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
-import colorDirective from '../color-directive'
+import { Component, Prop } from 'vue-property-decorator'
 
-@Component({
-  directives: {
-    colorDirective
-  }
-})
+@Component({})
 export default class Hello extends Vue {
-  message: string = 'Hello Vuehoohoo'
+  message: string = 'Hello'
 
-  created() {
-    console.log('Hello Vue created!')
-  }
+  @Prop({ type: String, default: ' Vuehoohoo'}) msg: string
 
-  beforeRouteEnter(to, from, next) {
-    console.log('Enter')
-    next()
+  get fullMessage() {
+    return `${this.message}${this.msg}`
   }
 }
 </script>
+
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
