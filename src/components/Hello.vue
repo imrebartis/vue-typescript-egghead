@@ -1,31 +1,26 @@
 <template>
   <div class="hello">
     <h1>{{ message }}</h1>
-    <h3>{{ fullMessage }}</h3>
-    <button @click="clicked">Click</button>
-    <button @click="parentClicked">Parent click</button>
+    <router-link to="hello-ts">Hello TS</router-link>
   </div>
 </template>
 
 <script lang="ts">
-import Parent from './Parent'
+import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component({})
-export default class Hello extends Parent {
-  message: string = 'Hello Vuehoo'
+export default class Hello extends Vue {
+  message: string = 'Hello Vuehoohoo'
 
   created() {
-    console.log('child created')
+    console.log('Hello Vue created!')
   }
 
-  get fullMessage() {
-    return `${this.message} TypeScript`
+  beforeRouteEnter(to, from, next) {
+    console.log('Enter')
+    next()
   }
-
-  // clicked() {
-  //   console.log('clicked')
-  // }
 }
 </script>
 
