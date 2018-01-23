@@ -1,20 +1,32 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <Hello/>
+    <MyCheckbox :title="checkbox.title" :value="checkbox.value" v-model="checkbox.checked"/>
   </div>
 </template>
 
 <script lang="ts">
-import Hello from './components/Hello.vue'
-
-export default {
-  name: 'app',
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
+import MyCheckbox from './components/MyCheckbox.vue'
+@Component({
   components: {
-    Hello
+    MyCheckbox
+  }
+})
+export default class App extends Vue {
+  checkbox = {
+    title: 'Fancy checkbox',
+    value: 'checkbox-id',
+    checked: true
   }
 }
 </script>
+
+
+
+
+
 
 <style>
 #app {
