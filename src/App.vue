@@ -1,42 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" alt="">
+    <ul>
+      <li v-for="user in users">{{ user.name }}</li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Component, { createDecorator } from 'vue-class-component'
-
-// the str argument is optional:
-const Log = (str?: string) => {
-  return createDecorator((component, key) => {
-    console.log("Component: ", component)
-    console.log("Decorated key: ", key)
-  })
-}
-
-const NoCache = createDecorator((component: any, key) => {
-  if (component.computed && component.computed[key]) {
-    component.computed[key].cache = false
-  } else {
-    throw Error('Not a computed property')
-  }
-})
+import Component from 'vue-class-component'
+import { lazyInject } from './container'
+import { TYPES } from './types'
 
 @Component
 export default class App extends Vue {
+  users = []
 
-  @Log()
-  coolVar = 'hey'
+  @lazyInject(TYPES.UsersService)
+  usersService
 
-  @NoCache
-  @Log()
-  get sayHi() {
-    return 'hi'
+  created() {
+    this.usersService.getUsers()
+      .then(data => {
+        this.users = data
+      })
+
   }
 }
+
 </script>
+
+
+
+
+
+
+
 
 
 
